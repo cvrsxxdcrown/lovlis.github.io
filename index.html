@@ -106,6 +106,29 @@
             opacity: 0.6;
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
         }
+        .error-window {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 200px;
+            font-size: 1em;
+        }
+        .error-header {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .error-button {
+            margin-top: 10px;
+            padding: 5px 10px;
+            border: none;
+            background: #ff4d4d;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -121,7 +144,7 @@
     </div>
     <div class="video-container" id="video-screen">
         <video id="video" src="img/febr.mp4" playsinline loop></video>
-        <div class="video-overlay">ERROR 404<br>Люди рядом<br>alrskaaa & nerkisewq</div>
+        <div class="video-overlay">ERROR 404<br>Моя голова не работает</div>
     </div>
     <script>
         function playVideo() {
@@ -130,6 +153,31 @@
             let video = document.getElementById('video');
             videoContainer.style.display = 'block';
             video.play();
+            setInterval(spawnErrorWindow, 500);
+        }
+        function spawnErrorWindow() {
+            let errorWindow = document.createElement('div');
+            errorWindow.classList.add('error-window');
+            errorWindow.style.top = Math.random() * 80 + 'vh';
+            errorWindow.style.left = Math.random() * 80 + 'vw';
+            
+            let errorHeader = document.createElement('div');
+            errorHeader.classList.add('error-header');
+            errorHeader.innerText = 'Error';
+            
+            let errorMessage = document.createElement('div');
+            errorMessage.innerText = 'Ты дорога мне.';
+            
+            let errorButton = document.createElement('button');
+            errorButton.classList.add('error-button');
+            errorButton.innerText = 'ЫЫЫ';
+            errorButton.onclick = () => errorWindow.remove();
+            
+            errorWindow.appendChild(errorHeader);
+            errorWindow.appendChild(errorMessage);
+            errorWindow.appendChild(errorButton);
+            
+            document.body.appendChild(errorWindow);
         }
     </script>
 </body>
