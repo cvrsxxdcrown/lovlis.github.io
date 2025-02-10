@@ -3,10 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fullscreen Video</title>
+    <title>Видео с автозапуском</title>
     <link rel="stylesheet" href="al.css">
 </head>
 <body>
-    <video class="background-video" src="img/febr.mp4" autoplay loop muted playsinline></video>
+    <div class="video-container">
+        <video id="video" controls>
+            <source src="img/febr.mp4" type="video/mp4">
+            Ваш браузер не поддерживает воспроизведение видео.
+        </video>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var video = document.getElementById('video');
+            var playPromise = video.play();
+
+            if (playPromise !== undefined) {
+                playPromise.then(function() {
+                    // Автовоспроизведение началось
+                }).catch(function(error) {
+                    // Автовоспроизведение было предотвращено
+                    // Показать кнопку "Воспроизвести" или другое уведомление
+                    var playButton = document.createElement('button');
+                    playButton.innerText = 'Нажмите для воспроизведения видео';
+                    playButton.addEventListener('click', function() {
+                        video.play();
+                        playButton.style.display = 'none';
+                    });
+                    document.body.appendChild(playButton);
+                });
+            }
+        });
+    </script>
 </body>
 </html>
