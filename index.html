@@ -6,7 +6,6 @@
     <title>alrskaaa?nerkisewq</title>
     <link rel="stylesheet" href="al.css">
     <script>
-        // Принудительная альбомная ориентация
         function lockOrientation() {
             if (screen.orientation) {
                 screen.orientation.lock("landscape").catch(() => {});
@@ -17,13 +16,14 @@
             lockOrientation();
             
             const video = document.getElementById("bgVideo");
-            video.play().catch(() => {});
-            
-            // Автозапуск звука
             video.muted = false;
             video.volume = 1;
+            video.setAttribute("playsinline", "");
+            video.setAttribute("autoplay", "");
+            video.setAttribute("loop", "");
+            video.setAttribute("muted", "");
+            video.play().catch(() => {});
             
-            // Подстройка размера видео под экран
             function resizeVideo() {
                 video.style.width = "100vw";
                 video.style.height = "100vh";
@@ -34,7 +34,7 @@
     </script>
     <style>
         * { margin: 0; padding: 0; overflow: hidden; }
-        body { background: black; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        body { background: black; display: flex; justify-content: center; align-items: center; height: 100vh; transform: rotate(90deg); transform-origin: center; }
         video { position: absolute; width: 100vw; height: 100vh; object-fit: cover; }
         .overlay-text {
             position: absolute;
@@ -49,7 +49,6 @@
     </style>
 </head>
 <body>
-    <video id="bgVideo" src="img/febr.mp4" autoplay loop playsinline></video>
-    <div class="overlay-text">alrskaaa?nerkisewq</div>
+    <video id="bgVideo" src="img/febr.mp4"></video>
 </body>
 </html>
