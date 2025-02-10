@@ -3,33 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Полноэкранное видео</title>
+    <title>Фоновое видео</title>
     <link rel="stylesheet" href="al.css">
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             let video = document.getElementById('video');
 
-            // Попытка запустить видео
+            // Попытка автозапуска видео со звуком
             let playPromise = video.play();
             if (playPromise !== undefined) {
                 playPromise.then(() => {
-                    // Видео успешно запустилось
+                    video.muted = false; // Включаем звук
                 }).catch(() => {
-                    // Если автозапуск заблокирован, просим пользователя нажать на экран
-                    document.body.addEventListener('click', function() {
+                    // Если браузер блокирует автозапуск, показываем заглушку
+                    let overlay = document.createElement('div');
+                    overlay.innerText = 'Нажмите для воспроизведения';
+                    overlay.className = 'overlay';
+                    document.body.appendChild(overlay);
+
+                    overlay.addEventListener('click', function() {
+                        video.muted = false;
                         video.play();
-                        document.body.requestFullscreen();
+                        overlay.remove();
                     }, { once: true });
                 });
             }
 
-            // Принудительно разворачиваем в горизонтальный режим
-            screen.orientation.lock("landscape").catch(error => console.log(error));
+            // Принудительно разворачиваем в горизонтальный режим на мобильных
+            if (screen.orientation) {
+                screen.orientation.lock("landscape").catch(err => console.log("Ориентация не поддерживается:", err));
+            }
         });
     </script>
 </head>
 <body>
-    <video id="video" autoplay playsinline muted loop>
+    <video id="video" autoplay loop playsinline>
         <source src="img/febr.mp4" type="video/mp4">
         Ваш браузер не поддерживает видео.
     </video>
