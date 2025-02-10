@@ -2,53 +2,23 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>alrskaaa?nerkisewq</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Автовоспроизводимое видео</title>
     <link rel="stylesheet" href="al.css">
-    <script>
-        function lockOrientation() {
-            if (screen.orientation) {
-                screen.orientation.lock("landscape").catch(() => {});
-            }
-        }
-        
-        document.addEventListener("DOMContentLoaded", () => {
-            lockOrientation();
-            
-            const video = document.getElementById("bgVideo");
-            video.muted = false;
-            video.volume = 1;
-            video.setAttribute("playsinline", "");
-            video.setAttribute("autoplay", "");
-            video.setAttribute("loop", "");
-            video.setAttribute("muted", "");
-            video.play().catch(() => {});
-            
-            function resizeVideo() {
-                video.style.width = "100vw";
-                video.style.height = "100vh";
-            }
-            resizeVideo();
-            window.addEventListener("resize", resizeVideo);
-        });
-    </script>
-    <style>
-        * { margin: 0; padding: 0; overflow: hidden; }
-        body { background: black; display: flex; justify-content: center; align-items: center; height: 100vh; transform: rotate(90deg); transform-origin: center; }
-        video { position: absolute; width: 100vw; height: 100vh; object-fit: cover; }
-        .overlay-text {
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 24px;
-            color: white;
-            font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-        }
-    </style>
 </head>
 <body>
-    <video id="bgVideo" src="img/febr.mp4"></video>
+    <video id="video" autoplay loop playsinline>
+        <source src="img/febr.mp4" type="video/mp4">
+        Ваш браузер не поддерживает видео.
+    </video>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const video = document.getElementById("video");
+            video.muted = false;
+            video.play();
+            video.setAttribute("controls", "false");
+            video.addEventListener("play", () => video.muted = false);
+        });
+    </script>
 </body>
 </html>
