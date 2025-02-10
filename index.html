@@ -6,32 +6,27 @@
     <title>Фоновое видео</title>
     <link rel="stylesheet" href="al.css">
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             let video = document.getElementById('video');
 
-            // Попытка автозапуска видео со звуком
+            // Принудительное воспроизведение видео
             let playPromise = video.play();
+
             if (playPromise !== undefined) {
                 playPromise.then(() => {
                     video.muted = false; // Включаем звук
                 }).catch(() => {
-                    // Если браузер блокирует автозапуск, показываем заглушку
-                    let overlay = document.createElement('div');
-                    overlay.innerText = 'Нажмите для воспроизведения';
-                    overlay.className = 'overlay';
-                    document.body.appendChild(overlay);
-
-                    overlay.addEventListener('click', function() {
-                        video.muted = false;
+                    // Если браузер блокирует автозапуск, можно попробовать воспроизвести при клике
+                    document.body.addEventListener('click', function () {
                         video.play();
-                        overlay.remove();
+                        video.muted = false;
                     }, { once: true });
                 });
             }
 
-            // Принудительно разворачиваем в горизонтальный режим на мобильных
+            // Принудительное переключение в альбомный режим на мобильных устройствах
             if (screen.orientation) {
-                screen.orientation.lock("landscape").catch(err => console.log("Ориентация не поддерживается:", err));
+                screen.orientation.lock('landscape').catch(err => console.log("Ошибка блокировки ориентации:", err));
             }
         });
     </script>
