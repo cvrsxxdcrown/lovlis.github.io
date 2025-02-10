@@ -2,38 +2,36 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Видео с автозапуском</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Полноэкранное видео</title>
     <link rel="stylesheet" href="al.css">
-</head>
-<body>
-    <div class="video-container">
-        <video id="video" controls>
-            <source src="img/febr.mp4" type="video/mp4">
-            Ваш браузер не поддерживает воспроизведение видео.
-        </video>
-    </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            var video = document.getElementById('video');
-            var playPromise = video.play();
+            let video = document.getElementById('video');
 
+            // Попытка запустить видео
+            let playPromise = video.play();
             if (playPromise !== undefined) {
-                playPromise.then(function() {
-                    // Автовоспроизведение началось
-                }).catch(function(error) {
-                    // Автовоспроизведение было предотвращено
-                    // Показать кнопку "Воспроизвести" или другое уведомление
-                    var playButton = document.createElement('button');
-                    playButton.innerText = 'Нажмите для воспроизведения видео';
-                    playButton.addEventListener('click', function() {
+                playPromise.then(() => {
+                    // Видео успешно запустилось
+                }).catch(() => {
+                    // Если автозапуск заблокирован, просим пользователя нажать на экран
+                    document.body.addEventListener('click', function() {
                         video.play();
-                        playButton.style.display = 'none';
-                    });
-                    document.body.appendChild(playButton);
+                        document.body.requestFullscreen();
+                    }, { once: true });
                 });
             }
+
+            // Принудительно разворачиваем в горизонтальный режим
+            screen.orientation.lock("landscape").catch(error => console.log(error));
         });
     </script>
+</head>
+<body>
+    <video id="video" autoplay playsinline muted loop>
+        <source src="img/febr.mp4" type="video/mp4">
+        Ваш браузер не поддерживает видео.
+    </video>
 </body>
 </html>
