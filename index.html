@@ -3,36 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Фоновое видео</title>
+    <title>Автостарт Видео</title>
     <link rel="stylesheet" href="al.css">
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: black;
+        }
+        video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(90deg);
+            width: auto;
+            height: 100vh;
+            object-fit: cover;
+        }
+    </style>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            let video = document.getElementById('video');
-
-            // Принудительное воспроизведение видео
-            let playPromise = video.play();
-
-            if (playPromise !== undefined) {
-                playPromise.then(() => {
-                    video.muted = false; // Включаем звук
-                }).catch(() => {
-                    // Если браузер блокирует автозапуск, можно попробовать воспроизвести при клике
-                    document.body.addEventListener('click', function () {
-                        video.play();
-                        video.muted = false;
-                    }, { once: true });
-                });
-            }
-
-            // Принудительное переключение в альбомный режим на мобильных устройствах
-            if (screen.orientation) {
-                screen.orientation.lock('landscape').catch(err => console.log("Ошибка блокировки ориентации:", err));
-            }
+        document.addEventListener("DOMContentLoaded", function () {
+            const video = document.getElementById("bg-video");
+            video.play().catch(error => console.log("Автозапуск заблокирован: ", error));
         });
     </script>
 </head>
 <body>
-    <video id="video" autoplay loop playsinline>
+    <video id="bg-video" playsinline autoplay muted loop>
         <source src="img/febr.mp4" type="video/mp4">
         Ваш браузер не поддерживает видео.
     </video>
