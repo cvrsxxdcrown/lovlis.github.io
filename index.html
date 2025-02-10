@@ -2,22 +2,20 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Автовоспроизводимое видео</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Видео</title>
     <link rel="stylesheet" href="al.css">
 </head>
 <body>
-    <video id="video" autoplay loop playsinline>
+    <video id="video" autoplay playsinline loop>
         <source src="img/febr.mp4" type="video/mp4">
-        Ваш браузер не поддерживает видео.
     </video>
+
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const video = document.getElementById("video");
-            video.muted = false;
-            video.play();
-            video.setAttribute("controls", "false");
-            video.addEventListener("play", () => video.muted = false);
+        document.addEventListener('DOMContentLoaded', function() {
+            const video = document.getElementById('video');
+            video.muted = false; // Включаем звук
+            video.play(); // Автоматический запуск
         });
     </script>
 </body>
