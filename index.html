@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ошибка</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -72,11 +72,11 @@
             background-color: #218838;
         }
         .gray {
-            background-color: #ff0000;
+            background-color: #6c757d;
             color: white;
         }
         .gray:hover {
-            background-color: #ff0000;
+            background-color: #5a6268;
         }
         .hidden {
             display: none;
@@ -94,13 +94,25 @@
             height: 100vw;
             object-fit: cover;
         }
+        .video-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            text-align: center;
+            font-size: 2em;
+            font-weight: 300;
+            opacity: 0.6;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
     </style>
 </head>
 <body>
     <div class="container" id="error-screen">
         <div class="message-box">
             <p class="error-text">Что-то пошло не так, повторите попытку.</p>
-            <p class="hint">(Поверни телефон вертикально)</p>
+            <p class="hint">(Держите телефон вертикально)</p>
             <div class="buttons">
                 <button class="retry green" onclick="playVideo()">Повторить</button>
                 <button class="retry gray" onclick="playVideo()">Повторить</button>
@@ -109,6 +121,7 @@
     </div>
     <div class="video-container" id="video-screen">
         <video id="video" src="img/febr.mp4" playsinline loop></video>
+        <div class="video-overlay">ERROR 404<br>Моя голова не работает</div>
     </div>
     <script>
         function playVideo() {
