@@ -2,25 +2,28 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Fullscreen Video</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ошибка</title>
     <link rel="stylesheet" href="al.css">
 </head>
 <body>
-    <video id="video" src="img/febr.mp4" autoplay loop playsinline></video>
-    <div class="overlay">
-        <h1>ERROR 404</h1>
-        <div class="text-container">
-            <p>Текст ошибки. Здесь можно добавить описание ошибки и другие детали. Этот текст можно прокручивать.</p>
+    <div class="container">
+        <div class="message-box">
+            <p class="error-text">Что-то пошло не так, повторите попытку.</p>
+            <p class="hint">(Держите телефон горизонтально)</p>
+            <div class="buttons">
+                <button class="retry green" onclick="playVideo()">Повторить</button>
+                <button class="retry gray" onclick="playVideo()">Повторить</button>
+            </div>
         </div>
     </div>
-
+    <video id="video" src="img/febr.mp4" class="hidden" playsinline></video>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const video = document.getElementById('video');
-            video.muted = false; // Включаем звук
-            video.play(); // Автоматический запуск
-        });
+        function playVideo() {
+            let video = document.getElementById('video');
+            video.classList.remove('hidden');
+            video.play();
+        }
     </script>
 </body>
 </html>
