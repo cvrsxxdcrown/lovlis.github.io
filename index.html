@@ -18,6 +18,7 @@
             align-items: center;
             height: 100vh;
             overflow: hidden;
+            position: relative;
         }
         .container {
             position: absolute;
@@ -115,6 +116,8 @@
             text-align: center;
             width: 200px;
             font-size: 1em;
+            transform: rotate(90deg);
+            transition: opacity 0.5s ease-in-out;
         }
         .error-header {
             font-weight: bold;
@@ -155,29 +158,39 @@
             video.play();
             setInterval(spawnErrorWindow, 500);
         }
+
         function spawnErrorWindow() {
             let errorWindow = document.createElement('div');
             errorWindow.classList.add('error-window');
-            errorWindow.style.top = Math.random() * 80 + 'vh';
-            errorWindow.style.left = Math.random() * 80 + 'vw';
-            
+
+            // Случайное положение
+            let randomX = Math.random() * 80;
+            let randomY = Math.random() * 80;
+
+            errorWindow.style.top = randomX + 'vh';
+            errorWindow.style.left = randomY + 'vw';
+
             let errorHeader = document.createElement('div');
             errorHeader.classList.add('error-header');
             errorHeader.innerText = 'Error';
-            
+
             let errorMessage = document.createElement('div');
             errorMessage.innerText = 'Ты дорога мне.';
-            
+
             let errorButton = document.createElement('button');
             errorButton.classList.add('error-button');
             errorButton.innerText = 'ЫЫЫ';
             errorButton.onclick = () => errorWindow.remove();
-            
+
             errorWindow.appendChild(errorHeader);
             errorWindow.appendChild(errorMessage);
             errorWindow.appendChild(errorButton);
-            
+
             document.body.appendChild(errorWindow);
+
+            setTimeout(() => {
+                errorWindow.remove();
+            }, 500);
         }
     </script>
 </body>
