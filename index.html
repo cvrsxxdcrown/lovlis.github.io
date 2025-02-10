@@ -3,13 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Видео</title>
+    <title>Fullscreen Video</title>
     <link rel="stylesheet" href="al.css">
 </head>
 <body>
-    <video id="video" autoplay playsinline loop>
-        <source src="img/febr.mp4" type="video/mp4">
-    </video>
+    <video id="video" src="img/febr.mp4" autoplay loop playsinline></video>
+    <div class="overlay">
+        <h1>ERROR 404</h1>
+        <div class="text-container">
+            <p>Текст ошибки. Здесь можно добавить описание ошибки и другие детали. Этот текст можно прокручивать.</p>
+        </div>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
