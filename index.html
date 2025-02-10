@@ -150,48 +150,41 @@
         <div class="video-overlay">ERROR 404<br>Моя голова не работает</div>
     </div>
     <script>
-        function playVideo() {
-            document.getElementById('error-screen').style.display = 'none';
-            let videoContainer = document.getElementById('video-screen');
-            let video = document.getElementById('video');
-            videoContainer.style.display = 'block';
-            video.play();
-            setInterval(spawnErrorWindow, 500);
-        }
-
         function spawnErrorWindow() {
             let errorWindow = document.createElement('div');
             errorWindow.classList.add('error-window');
-
-            // Случайное положение
-            let randomX = Math.random() * 80;
-            let randomY = Math.random() * 80;
-
-            errorWindow.style.top = randomX + 'vh';
-            errorWindow.style.left = randomY + 'vw';
-
+    
+            let maxX = window.innerWidth - 200;
+            let maxY = window.innerHeight - 100;
+    
+            let randomX = Math.random() * maxX;
+            let randomY = Math.random() * maxY;
+    
+            errorWindow.style.left = randomX + 'px';
+            errorWindow.style.top = randomY + 'px';
+    
             let errorHeader = document.createElement('div');
             errorHeader.classList.add('error-header');
             errorHeader.innerText = 'Error';
-
+    
             let errorMessage = document.createElement('div');
             errorMessage.innerText = 'Ты дорога мне.';
-
+    
             let errorButton = document.createElement('button');
             errorButton.classList.add('error-button');
             errorButton.innerText = 'ЫЫЫ';
             errorButton.onclick = () => errorWindow.remove();
-
+    
             errorWindow.appendChild(errorHeader);
             errorWindow.appendChild(errorMessage);
             errorWindow.appendChild(errorButton);
-
+    
             document.body.appendChild(errorWindow);
-
+    
             setTimeout(() => {
                 errorWindow.remove();
             }, 500);
         }
-    </script>
+    </script>    
 </body>
 </html>
