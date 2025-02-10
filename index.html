@@ -17,10 +17,12 @@
             </div>
         </div>
     </div>
-    <video id="video" src="img/febr.mp4" class="hidden" playsinline></video>
+    <video id="video" src="img/febr.mp4" class="hidden" playsinline loop></video>
     <script>
         function playVideo() {
             let video = document.getElementById('video');
+            let container = document.querySelector('.container');
+            container.style.display = 'none';
             video.classList.remove('hidden');
             video.play();
         }
