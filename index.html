@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ошибка</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="al.css">
     <style>
         * {
             margin: 0;
@@ -14,7 +13,6 @@
             font-family: 'Montserrat', sans-serif;
         }
         body {
-            background: url('img/pnebo.jpg') no-repeat center center/cover;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -22,12 +20,14 @@
             overflow: hidden;
         }
         .container {
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            background: url('img/pnebo.jpg') no-repeat center center/cover;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
         }
         .message-box {
             background: rgba(255, 255, 255, 0.2);
@@ -81,6 +81,12 @@
         .hidden {
             display: none;
         }
+        .video-container {
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            display: none;
+        }
         video {
             width: 100vw;
             height: 100vh;
@@ -89,23 +95,25 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="error-screen">
         <div class="message-box">
             <p class="error-text">Что-то пошло не так, повторите попытку.</p>
-            <p class="hint">(Держите телефон горизонтально)</p>
+            <p class="hint">(Держите телефон вертикально)</p>
             <div class="buttons">
                 <button class="retry green" onclick="playVideo()">Повторить</button>
                 <button class="retry gray" onclick="playVideo()">Повторить</button>
             </div>
         </div>
     </div>
-    <video id="video" src="img/febr.mp4" class="hidden" playsinline loop></video>
+    <div class="video-container" id="video-screen">
+        <video id="video" src="img/febr.mp4" playsinline loop></video>
+    </div>
     <script>
         function playVideo() {
+            document.getElementById('error-screen').style.display = 'none';
+            let videoContainer = document.getElementById('video-screen');
             let video = document.getElementById('video');
-            let container = document.querySelector('.container');
-            container.style.display = 'none';
-            video.classList.remove('hidden');
+            videoContainer.style.display = 'block';
             video.play();
         }
     </script>
