@@ -158,51 +158,51 @@
         }
 
         function spawnErrorWindow() {
-            if (shuffledCompliments.length === 0) {
-                shuffleCompliments();
-            }
-            
-            let message = shuffledCompliments.pop();
-
-            let errorWindow = document.createElement('div');
-            errorWindow.classList.add('error-window');
-
-            let windowWidth = window.innerWidth;
-            let windowHeight = window.innerHeight;
-            let errorWidth = 200;
-            let errorHeight = 100; 
-
-            let maxX = windowWidth - errorHeight; 
-            let maxY = windowHeight - errorWidth;
-
-            let randomX = Math.random() * maxX;
-            let randomY = Math.random() * maxY;
-
-            errorWindow.style.top = `${randomY}px`;
-            errorWindow.style.left = `${randomX}px`;
-
-            let errorHeader = document.createElement('div');
-            errorHeader.classList.add('error-header');
-            errorHeader.innerText = 'Error';
-
-            let errorMessage = document.createElement('div');
-            errorMessage.innerText = message;
-
-            let errorButton = document.createElement('button');
-            errorButton.classList.add('error-button');
-            errorButton.innerText = 'ЫЫЫ';
-            errorButton.onclick = () => errorWindow.remove();
-
-            errorWindow.appendChild(errorHeader);
-            errorWindow.appendChild(errorMessage);
-            errorWindow.appendChild(errorButton);
-
-            document.body.appendChild(errorWindow);
-
-            setTimeout(() => {
-                errorWindow.remove();
-            }, 1000);
+        if (shuffledCompliments.length === 0) {
+            shuffleCompliments();
         }
+        
+        let message = shuffledCompliments.pop();
+
+        let errorWindow = document.createElement('div');
+        errorWindow.classList.add('error-window');
+
+        let windowWidth = window.innerWidth;
+        let windowHeight = window.innerHeight;
+        let errorWidth = 200; // Ширина окна ошибки
+        let errorHeight = 100; // Высота окна ошибки (с учетом поворота)
+
+        let maxX = windowWidth - errorHeight; // Максимально допустимое X с учетом поворота
+        let maxY = windowHeight - errorWidth; // Максимально допустимое Y с учетом поворота
+
+        let randomX = Math.random() * maxX;
+        let randomY = Math.random() * maxY;
+
+        errorWindow.style.top = `${randomY}px`;
+        errorWindow.style.left = `${randomX}px`;
+
+        let errorHeader = document.createElement('div');
+        errorHeader.classList.add('error-header');
+        errorHeader.innerText = 'Error';
+
+        let errorMessage = document.createElement('div');
+        errorMessage.innerText = message;
+
+        let errorButton = document.createElement('button');
+        errorButton.classList.add('error-button');
+        errorButton.innerText = 'ЫЫЫ';
+        errorButton.onclick = () => errorWindow.remove();
+
+        errorWindow.appendChild(errorHeader);
+        errorWindow.appendChild(errorMessage);
+        errorWindow.appendChild(errorButton);
+
+        document.body.appendChild(errorWindow);
+
+        setTimeout(() => {
+            errorWindow.remove();
+        }, 1000);
+    }
     </script>
 </body>
 </html>
