@@ -4,27 +4,207 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ошибка</title>
-    <link rel="stylesheet" href="al.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+        .container {
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            background: url('img/pnebo.jpg') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .message-box {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 30px;
+            text-align: center;
+            color: white;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 400px;
+        }
+        .error-text {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .hint {
+            font-size: 0.9em;
+            opacity: 0.8;
+            margin-bottom: 15px;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .retry {
+            padding: 12px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+            border-radius: 25px;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+        .green {
+            background-color: #28a745;
+            color: white;
+        }
+        .green:hover {
+            background-color: #218838;
+        }
+        .gray {
+            background-color: #6c757d;
+            color: white;
+        }
+        .gray:hover {
+            background-color: #5a6268;
+        }
+        .video-container {
+            position: absolute;
+            width: 100vh;
+            height: 100vw;
+            display: none;
+            transform: rotate(90deg);
+            transform-origin: center;
+        }
+        video {
+            width: 100vh;
+            height: 100vw;
+            object-fit: cover;
+        }
+        .video-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            text-align: center;
+            font-size: 2em;
+            font-weight: 300;
+            opacity: 0.6;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        .error-window {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            font-size: 1em;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .error-header {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .error-button {
+            margin-top: 10px;
+            padding: 5px 10px;
+            border: none;
+            background: #ff4d4d;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="error-screen">
         <div class="message-box">
             <p class="error-text">Что-то пошло не так, повторите попытку.</p>
-            <p class="hint">(Держите телефон горизонтально)</p>
+            <p class="hint">(Держите телефон вертикально)</p>
             <div class="buttons">
                 <button class="retry green" onclick="playVideo()">Повторить</button>
                 <button class="retry gray" onclick="playVideo()">Повторить</button>
             </div>
         </div>
     </div>
-    <video id="video" src="img/febr.mp4" class="hidden" playsinline loop></video>
+    <div class="video-container" id="video-screen">
+        <video id="video" src="img/febr.mp4" playsinline loop></video>
+        <div class="video-overlay">ERROR 404<br>Моя голова не работает</div>
+    </div>
     <script>
+        let compliments = [
+            "милая", "классная", "прекрасная", "красивая", "умная", "веселая", 
+            "восхитительная", "великолепная", "ты мне дорога", "непредсказуемая", 
+            "очаровательная", "иногда злючка", "добрая", "смешная", "яркая", "неповторимая"
+        ];
+        let shuffledCompliments = [];
+
+        function shuffleCompliments() {
+            shuffledCompliments = compliments.slice().sort(() => Math.random() - 0.5);
+        }
+
         function playVideo() {
+            document.getElementById('error-screen').style.display = 'none';
+            let videoContainer = document.getElementById('video-screen');
             let video = document.getElementById('video');
-            let container = document.querySelector('.container');
-            container.style.display = 'none';
-            video.classList.remove('hidden');
+            videoContainer.style.display = 'block';
             video.play();
+            shuffleCompliments();
+            setInterval(spawnErrorWindow, 1000);
+        }
+
+        function spawnErrorWindow() {
+            if (shuffledCompliments.length === 0) {
+                shuffleCompliments();
+            }
+            
+            let message = shuffledCompliments.pop();
+
+            let errorWindow = document.createElement('div');
+            errorWindow.classList.add('error-window');
+
+            let maxWidth = window.innerWidth - 220; 
+            let maxHeight = window.innerHeight - 100; 
+            let randomX = Math.random() * maxWidth;
+            let randomY = Math.random() * maxHeight;
+
+            errorWindow.style.top = `${randomY}px`;
+            errorWindow.style.left = `${randomX}px`;
+
+            let errorHeader = document.createElement('div');
+            errorHeader.classList.add('error-header');
+            errorHeader.innerText = 'Error';
+
+            let errorMessage = document.createElement('div');
+            errorMessage.innerText = message;
+
+            let errorButton = document.createElement('button');
+            errorButton.classList.add('error-button');
+            errorButton.innerText = 'ЫЫЫ';
+            errorButton.onclick = () => errorWindow.remove();
+
+            errorWindow.appendChild(errorHeader);
+            errorWindow.appendChild(errorMessage);
+            errorWindow.appendChild(errorButton);
+
+            document.body.appendChild(errorWindow);
+
+            setTimeout(() => {
+                errorWindow.remove();
+            }, 1000);
         }
     </script>
 </body>
