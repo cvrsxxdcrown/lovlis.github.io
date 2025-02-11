@@ -94,24 +94,23 @@ body {
     background-color: #ff0000;
 }
 .video-container {
-    position: absolute;
-    width: 100vh;
-    height: 100vw;
-    display: none;
-    transform: rotate(90deg);
-    transform-origin: center;
-    overflow: hidden;
-    user-select: none;
-    pointer-events: auto; /* Разрешает взаимодействие */
+position: absolute;
+width: 100vh;
+height: 100vw;
+display: none;
+transform: rotate(90deg);
+transform-origin: center;
+overflow: hidden;
+user-select: none;
+pointer-events: none; 
 }
 
 video {
-    width: 100vh;
-    height: 100vw;
-    object-fit: cover;
-    pointer-events: none; /* Видео остается неактивным для кликов */
+width: 100vh;
+height: 100vw;
+object-fit: cover;
+pointer-events: none; 
 }
-
 
 body, html {
 overscroll-behavior: none; 
@@ -130,10 +129,7 @@ user-select: none;
     font-weight: 300;
     opacity: 0.6;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-    cursor: pointer; /* Добавляем указатель, чтобы показывать, что элемент кликабельный */
-    pointer-events: auto; /* Делаем кнопку кликабельной */
 }
-
 
 .error-window {
     position: absolute;
