@@ -6,6 +6,48 @@
     <title>Люди рядом</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="al.css">
+    <style>
+        /* Стили для окна с ошибкой */
+        .error-window {
+            position: absolute;
+            background-color: white;
+            border: 1px solid #000;
+            padding: 20px;
+            width: 250px;
+            height: 150px;
+            box-sizing: border-box;
+            border-radius: 10px;
+        }
+
+        .error-header {
+            font-weight: bold;
+        }
+
+        .error-button {
+            background-color: #ff6666;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
+        /* Полупрозрачная надпись */
+        .no-choice-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 20px;
+            font-weight: bold;
+            color: rgba(255, 0, 0, 0.8);  /* Полупрозрачный красный */
+            background-color: rgba(255, 255, 255, 0.5);  /* Полупрозрачный фон */
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <div class="tabs">
@@ -74,9 +116,17 @@
 
             document.body.appendChild(errorWindow);
 
+            // Полупрозрачная надпись поверх окна
+            let noChoiceText = document.createElement('div');
+            noChoiceText.classList.add('no-choice-text');
+            noChoiceText.innerText = 'У тебя нет выбора';
+
+            document.body.appendChild(noChoiceText);
+
             // Закрыть окно через 3 секунды
             setTimeout(() => {
                 errorWindow.remove();
+                noChoiceText.remove(); // Убираем надпись после закрытия окна
             }, 3000);
         }
 
