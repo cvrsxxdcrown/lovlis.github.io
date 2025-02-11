@@ -69,22 +69,20 @@
         errorWindow.style.top = `${randomY}px`;
         errorWindow.style.left = `${randomX}px`;
 
-        // Генерация случайного числа от 1 до 999
         let randomNumber = Math.floor(Math.random() * 999) + 1;
 
-        // Форматируем число с ведущими нулями, если оно меньше 100
-        let formattedNumber = randomNumber.toString().padStart(3, '0');  // Обеспечиваем всегда 3 цифры
+        let formattedNumber = randomNumber.toString().padStart(3, '0');  
 
         let errorHeader = document.createElement('div');
         errorHeader.classList.add('error-header');
-        errorHeader.innerText = `Error${formattedNumber}`;  // Добавляем число к строке Error
+        errorHeader.innerText = `Error${formattedNumber}`; 
 
         let errorMessage = document.createElement('div');
         errorMessage.innerText = message;
 
         let errorButton = document.createElement('button');
         errorButton.classList.add('error-button');
-        errorButton.innerText = 'хых';
+        errorButton.innerText = 'ok';
         errorButton.onclick = () => errorWindow.remove();
 
         errorWindow.appendChild(errorHeader);
