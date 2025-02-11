@@ -93,6 +93,18 @@
             height: 100vw;
             object-fit: cover;
         }
+        .video-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            text-align: center;
+            font-size: 2em;
+            font-weight: 300;
+            opacity: 0.6;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
 
         .error-window {
             position: absolute;
@@ -134,6 +146,7 @@
     </div>
     <div class="video-container" id="video-screen">
         <video id="video" src="img/febr.mp4" playsinline loop></video>
+        <div class="video-overlay">ERROR 404<br>Моя голова не работает</div>
     </div>
     <script>
         let compliments = [
@@ -203,6 +216,7 @@
             errorWindow.remove();
         }, 1000);
     }
+
     </script>
 </body>
 </html>
