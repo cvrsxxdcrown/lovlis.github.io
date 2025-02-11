@@ -80,19 +80,30 @@
             background-color: #5a6268;
         }
         .video-container {
-            position: absolute;
-            width: 100vh;
-            height: 100vw;
-            display: none;
-            transform: rotate(90deg);
-            transform-origin: center;
+        position: absolute;
+        width: 100vh;
+        height: 100vw;
+        display: none;
+        transform: rotate(90deg);
+        transform-origin: center;
+        overflow: hidden;
+        user-select: none;
+        pointer-events: none; /* Запрещаем взаимодействие */
         }
 
         video {
-            width: 100vh;
-            height: 100vw;
-            object-fit: cover;
+        width: 100vh;
+        height: 100vw;
+        object-fit: cover;
+        pointer-events: none; /* Полностью отключаем клики, касания и масштабирование */
         }
+
+        body, html {
+        overscroll-behavior: none; /* Запрещаем скролл */
+        touch-action: none; /* Запрещаем жесты */
+        user-select: none; /* Запрещаем выделение */
+        }
+
         .video-overlay {
             position: absolute;
             top: 50%;
@@ -161,35 +172,34 @@
         }
 
         function playVideo() {
-            document.getElementById('error-screen').style.display = 'none';
-            let videoContainer = document.getElementById('video-screen');
-            let video = document.getElementById('video');
-            videoContainer.style.display = 'block';
-            video.play();
-            shuffleCompliments();
-            setInterval(spawnErrorWindow, 1000);
+        document.getElementById('error-screen').style.display = 'none';
+        let videoContainer = document.getElementById('video-screen');
+        let video = document.getElementById('video');
+        videoContainer.style.display = 'block';
+        video.play();
+        shuffleCompliments();
+        setInterval(spawnErrorWindow, 1000);
         }
 
         function spawnErrorWindow() {
         if (shuffledCompliments.length === 0) {
             shuffleCompliments();
         }
-        
+
         let message = shuffledCompliments.pop();
 
         let errorWindow = document.createElement('div');
         errorWindow.classList.add('error-window');
 
-        let windowWidth = window.innerWidth;
-        let windowHeight = window.innerHeight;
-        let errorWidth = 200; // Ширина окна ошибки
-        let errorHeight = 100; // Высота окна ошибки (с учетом поворота)
+        let videoContainer = document.getElementById('video-screen');
+        let rect = videoContainer.getBoundingClientRect(); // Получаем размеры видео
 
-        let maxX = windowWidth - errorHeight; // Максимально допустимое X с учетом поворота
-        let maxY = windowHeight - errorWidth; // Максимально допустимое Y с учетом поворота
+        let errorWidth = 200;
+        let errorHeight = 100;
 
-        let randomX = Math.random() * maxX;
-        let randomY = Math.random() * maxY;
+        // Генерируем случайные координаты так, чтобы окна ошибок были в пределах видео
+        let randomX = rect.left + Math.random() * (rect.width - errorWidth);
+        let randomY = rect.top + Math.random() * (rect.height - errorHeight);
 
         errorWindow.style.top = `${randomY}px`;
         errorWindow.style.left = `${randomX}px`;
