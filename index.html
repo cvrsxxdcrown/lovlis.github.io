@@ -14,11 +14,11 @@
     </div>
     <div class="container" id="error-screen">
         <div class="message-box">
-            <p class="error-text">Оперативная память перегружена...</p>
-            <p class="hint">(Нажми "Повторить" и поверни телефон)</p>
+            <p class="error-text">Заканчивается место на главном диске С...</p>
+            <p class="hint">Хм,надо бы что то стереть из памяти.Выполним очистку?</p>
             <div class="buttons">
-                <button class="retry green" onclick="playVideo()">Повторить</button>
-                <button class="retry gray" onclick="playVideo()">Повторить</button>
+                <button class="retry green" onclick="playVideo()">Да</button>
+                <button class="retry gray" onclick="showNoChoiceError()">Нет</button>
             </div>
         </div>
     </div>
@@ -39,58 +39,90 @@
         }
 
         function playVideo() {
-        document.getElementById('error-screen').style.display = 'none';
-        let videoContainer = document.getElementById('video-screen');
-        let video = document.getElementById('video');
-        videoContainer.style.display = 'block';
-        video.play();
-        shuffleCompliments();
-        setInterval(spawnErrorWindow, 1000);
+            document.getElementById('error-screen').style.display = 'none';
+            let videoContainer = document.getElementById('video-screen');
+            let video = document.getElementById('video');
+            videoContainer.style.display = 'block';
+            video.play();
+            shuffleCompliments();
+            setInterval(spawnErrorWindow, 1000);
+        }
+
+        function showNoChoiceError() {
+            // Скрыть экран с ошибкой
+            document.getElementById('error-screen').style.display = 'none';
+
+            // Создать новое окно ошибки
+            let errorWindow = document.createElement('div');
+            errorWindow.classList.add('error-window');
+
+            let errorHeader = document.createElement('div');
+            errorHeader.classList.add('error-header');
+            errorHeader.innerText = 'Error';
+
+            let errorMessage = document.createElement('div');
+            errorMessage.innerText = 'У тебя нет выбора';
+
+            let errorButton = document.createElement('button');
+            errorButton.classList.add('error-button');
+            errorButton.innerText = 'Закрыть';
+            errorButton.onclick = () => errorWindow.remove();
+
+            errorWindow.appendChild(errorHeader);
+            errorWindow.appendChild(errorMessage);
+            errorWindow.appendChild(errorButton);
+
+            document.body.appendChild(errorWindow);
+
+            // Закрыть окно через 3 секунды
+            setTimeout(() => {
+                errorWindow.remove();
+            }, 3000);
         }
 
         function spawnErrorWindow() {
-        if (shuffledCompliments.length === 0) {
-            shuffleCompliments();
+            if (shuffledCompliments.length === 0) {
+                shuffleCompliments();
+            }
+
+            let message = shuffledCompliments.pop();
+
+            let errorWindow = document.createElement('div');
+            errorWindow.classList.add('error-window');
+
+            let videoContainer = document.getElementById('video-screen');
+            let rect = videoContainer.getBoundingClientRect(); 
+            let errorWidth = 200;
+            let errorHeight = 100;
+
+            let randomX = rect.left + Math.random() * (rect.width - errorWidth);
+            let randomY = rect.top + Math.random() * (rect.height - errorHeight);
+
+            errorWindow.style.top = `${randomY}px`;
+            errorWindow.style.left = `${randomX}px`;
+
+            let errorHeader = document.createElement('div');
+            errorHeader.classList.add('error-header');
+            errorHeader.innerText = 'Error';
+
+            let errorMessage = document.createElement('div');
+            errorMessage.innerText = message;
+
+            let errorButton = document.createElement('button');
+            errorButton.classList.add('error-button');
+            errorButton.innerText = 'хых';
+            errorButton.onclick = () => errorWindow.remove();
+
+            errorWindow.appendChild(errorHeader);
+            errorWindow.appendChild(errorMessage);
+            errorWindow.appendChild(errorButton);
+
+            document.body.appendChild(errorWindow);
+
+            setTimeout(() => {
+                errorWindow.remove();
+            }, 1000);
         }
-
-        let message = shuffledCompliments.pop();
-
-        let errorWindow = document.createElement('div');
-        errorWindow.classList.add('error-window');
-
-        let videoContainer = document.getElementById('video-screen');
-        let rect = videoContainer.getBoundingClientRect(); 
-        let errorWidth = 200;
-        let errorHeight = 100;
-
-        let randomX = rect.left + Math.random() * (rect.width - errorWidth);
-        let randomY = rect.top + Math.random() * (rect.height - errorHeight);
-
-        errorWindow.style.top = `${randomY}px`;
-        errorWindow.style.left = `${randomX}px`;
-
-        let errorHeader = document.createElement('div');
-        errorHeader.classList.add('error-header');
-        errorHeader.innerText = 'Error';
-
-        let errorMessage = document.createElement('div');
-        errorMessage.innerText = message;
-
-        let errorButton = document.createElement('button');
-        errorButton.classList.add('error-button');
-        errorButton.innerText = 'хых';
-        errorButton.onclick = () => errorWindow.remove();
-
-        errorWindow.appendChild(errorHeader);
-        errorWindow.appendChild(errorMessage);
-        errorWindow.appendChild(errorButton);
-
-        document.body.appendChild(errorWindow);
-
-        setTimeout(() => {
-            errorWindow.remove();
-        }, 1000);
-    }
     </script>
 </body>
 </html>
