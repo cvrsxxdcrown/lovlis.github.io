@@ -79,31 +79,6 @@
         .gray:hover {
             background-color: #5a6268;
         }
-        .video-container {
-            position: absolute;
-            width: 100vh;
-            height: 100vw;
-            display: none;
-            transform: rotate(90deg);
-            transform-origin: center;
-        }
-        video {
-            width: 100vh;
-            height: 100vw;
-            object-fit: cover;
-        }
-        .video-overlay {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            text-align: center;
-            font-size: 2em;
-            font-weight: 300;
-            opacity: 0.6;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-        }
         .error-window {
             position: absolute;
             background: rgba(255, 255, 255, 0.7);
@@ -112,7 +87,9 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
             text-align: center;
             font-size: 1em;
+            transform: rotate(90deg);
             transition: opacity 0.5s ease-in-out;
+            width: 200px;
         }
         .error-header {
             font-weight: bold;
@@ -133,7 +110,7 @@
     <div class="container" id="error-screen">
         <div class="message-box">
             <p class="error-text">Что-то пошло не так, повторите попытку.</p>
-            <p class="hint">(Держите телефон вертикально)</p>
+            <p class="hint">(Нажмите "Повторить")</p>
             <div class="buttons">
                 <button class="retry green" onclick="playVideo()">Повторить</button>
                 <button class="retry gray" onclick="playVideo()">Повторить</button>
@@ -142,7 +119,6 @@
     </div>
     <div class="video-container" id="video-screen">
         <video id="video" src="img/febr.mp4" playsinline loop></video>
-        <div class="video-overlay">ERROR 404<br>Моя голова не работает</div>
     </div>
     <script>
         let compliments = [
@@ -176,8 +152,8 @@
             let errorWindow = document.createElement('div');
             errorWindow.classList.add('error-window');
 
-            let maxWidth = window.innerWidth - 220; 
-            let maxHeight = window.innerHeight - 100; 
+            let maxWidth = window.innerWidth - 100; 
+            let maxHeight = window.innerHeight - 220; 
             let randomX = Math.random() * maxWidth;
             let randomY = Math.random() * maxHeight;
 
