@@ -167,74 +167,63 @@
         ];
         let shuffledCompliments = [];
 
-        function showCreatorMessage() {
-            let message = document.getElementById('creator-message');
-            message.style.opacity = '1';
-            setTimeout(() => {
-                message.style.opacity = '0';
-            }, 1000);
-        }
-
         function shuffleCompliments() {
             shuffledCompliments = compliments.slice().sort(() => Math.random() - 0.5);
         }
 
         function playVideo() {
-            document.getElementById('error-screen').style.display = 'none';
-            let videoContainer = document.getElementById('video-screen');
-            let video = document.getElementById('video');
-            videoContainer.style.display = 'block';
-            video.play();
-            shuffleCompliments();
-            setInterval(spawnErrorWindow, 1000);
+        document.getElementById('error-screen').style.display = 'none';
+        let videoContainer = document.getElementById('video-screen');
+        let video = document.getElementById('video');
+        videoContainer.style.display = 'block';
+        video.play();
+        shuffleCompliments();
+        setInterval(spawnErrorWindow, 1000);
         }
 
         function spawnErrorWindow() {
-            if (shuffledCompliments.length === 0) {
-                shuffleCompliments();
-            }
-
-            let message = shuffledCompliments.pop();
-
-            let errorWindow = document.createElement('div');
-            errorWindow.classList.add('error-window');
-
-            let videoContainer = document.getElementById('video-screen');
-            let rect = videoContainer.getBoundingClientRect(); 
-            let errorWidth = 200;
-            let errorHeight = 100;
-
-            let randomX = rect.left + Math.random() * (rect.width - errorWidth);
-            let randomY = rect.top + Math.random() * (rect.height - errorHeight);
-
-            errorWindow.style.top = `${randomY}px`;
-            errorWindow.style.left = `${randomX}px`;
-
-            let errorHeader = document.createElement('div');
-            errorHeader.classList.add('error-header');
-            errorHeader.innerText = 'Error';
-
-            let errorMessage = document.createElement('div');
-            errorMessage.innerText = message;
-
-            let errorButton = document.createElement('button');
-            errorButton.classList.add('error-button');
-            errorButton.innerText = 'хых';
-            errorButton.onclick = () => {
-                errorWindow.remove();
-                showCreatorMessage();
-            };
-
-            errorWindow.appendChild(errorHeader);
-            errorWindow.appendChild(errorMessage);
-            errorWindow.appendChild(errorButton);
-
-            document.body.appendChild(errorWindow);
-
-            setTimeout(() => {
-                errorWindow.remove();
-            }, 1000);
+        if (shuffledCompliments.length === 0) {
+            shuffleCompliments();
         }
+
+        let message = shuffledCompliments.pop();
+
+        let errorWindow = document.createElement('div');
+        errorWindow.classList.add('error-window');
+
+        let videoContainer = document.getElementById('video-screen');
+        let rect = videoContainer.getBoundingClientRect(); 
+        let errorWidth = 200;
+        let errorHeight = 100;
+
+        let randomX = rect.left + Math.random() * (rect.width - errorWidth);
+        let randomY = rect.top + Math.random() * (rect.height - errorHeight);
+
+        errorWindow.style.top = `${randomY}px`;
+        errorWindow.style.left = `${randomX}px`;
+
+        let errorHeader = document.createElement('div');
+        errorHeader.classList.add('error-header');
+        errorHeader.innerText = 'Error';
+
+        let errorMessage = document.createElement('div');
+        errorMessage.innerText = message;
+
+        let errorButton = document.createElement('button');
+        errorButton.classList.add('error-button');
+        errorButton.innerText = 'хых';
+        errorButton.onclick = () => errorWindow.remove();
+
+        errorWindow.appendChild(errorHeader);
+        errorWindow.appendChild(errorMessage);
+        errorWindow.appendChild(errorButton);
+
+        document.body.appendChild(errorWindow);
+
+        setTimeout(() => {
+            errorWindow.remove();
+        }, 1000);
+    }
     </script>
 </body>
 </html>
