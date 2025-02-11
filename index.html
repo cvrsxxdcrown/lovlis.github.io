@@ -19,8 +19,7 @@
             height: 100vh;
             overflow: hidden;
             position: relative;
-        }
-        .tabs {
+            .tabs {
             position: absolute;
             top: 10px;
             left: 50%;
@@ -41,6 +40,7 @@
         }
         .tab.active {
             background: rgba(255, 255, 255, 0.5);
+        }
         }
         .container {
             position: absolute;
@@ -101,6 +101,69 @@
         .gray:hover {
             background-color: #ff0000;
         }
+        .video-container {
+        position: absolute;
+        width: 100vh;
+        height: 100vw;
+        display: none;
+        transform: rotate(90deg);
+        transform-origin: center;
+        overflow: hidden;
+        user-select: none;
+        pointer-events: none; 
+        }
+
+        video {
+        width: 100vh;
+        height: 100vw;
+        object-fit: cover;
+        pointer-events: none; 
+        }
+
+        body, html {
+        overscroll-behavior: none; 
+        touch-action: none; 
+        user-select: none; 
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            text-align: center;
+            font-size: 2em;
+            font-weight: 300;
+            opacity: 0.6;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .error-window {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            font-size: 1em;
+            transform: rotate(90deg);
+            transition: opacity 0.5s ease-in-out;
+            width: 200px;
+        }
+        .error-header {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .error-button {
+            margin-top: 10px;
+            padding: 5px 10px;
+            border: none;
+            background: #ff4d4d;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -118,5 +181,75 @@
             </div>
         </div>
     </div>
+    <div class="video-container" id="video-screen">
+        <video id="video" src="img/febr.mp4" playsinline loop></video>
+        <div class="video-overlay">ERROR 404<br>Люди рядом<br>alrskaaa & nerkisewq</div>
+    </div>
+    <script>
+        let compliments = [
+            "милая", "классная", "прекрасная", "красивая", "умная", "веселая", 
+            "восхитительная", "великолепная", "ты мне дорога", "непредсказуемая", 
+            "очаровательная", "иногда злючка", "добрая", "смешная", "яркая", "неповторимая"
+        ];
+        let shuffledCompliments = [];
+
+        function shuffleCompliments() {
+            shuffledCompliments = compliments.slice().sort(() => Math.random() - 0.5);
+        }
+
+        function playVideo() {
+        document.getElementById('error-screen').style.display = 'none';
+        let videoContainer = document.getElementById('video-screen');
+        let video = document.getElementById('video');
+        videoContainer.style.display = 'block';
+        video.play();
+        shuffleCompliments();
+        setInterval(spawnErrorWindow, 1000);
+        }
+
+        function spawnErrorWindow() {
+        if (shuffledCompliments.length === 0) {
+            shuffleCompliments();
+        }
+
+        let message = shuffledCompliments.pop();
+
+        let errorWindow = document.createElement('div');
+        errorWindow.classList.add('error-window');
+
+        let videoContainer = document.getElementById('video-screen');
+        let rect = videoContainer.getBoundingClientRect(); 
+        let errorWidth = 200;
+        let errorHeight = 100;
+
+        let randomX = rect.left + Math.random() * (rect.width - errorWidth);
+        let randomY = rect.top + Math.random() * (rect.height - errorHeight);
+
+        errorWindow.style.top = `${randomY}px`;
+        errorWindow.style.left = `${randomX}px`;
+
+        let errorHeader = document.createElement('div');
+        errorHeader.classList.add('error-header');
+        errorHeader.innerText = 'Error';
+
+        let errorMessage = document.createElement('div');
+        errorMessage.innerText = message;
+
+        let errorButton = document.createElement('button');
+        errorButton.classList.add('error-button');
+        errorButton.innerText = 'хых';
+        errorButton.onclick = () => errorWindow.remove();
+
+        errorWindow.appendChild(errorHeader);
+        errorWindow.appendChild(errorMessage);
+        errorWindow.appendChild(errorButton);
+
+        document.body.appendChild(errorWindow);
+
+        setTimeout(() => {
+            errorWindow.remove();
+        }, 1000);
+    }
+    </script>
 </body>
 </html>
