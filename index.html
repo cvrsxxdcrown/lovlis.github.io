@@ -19,6 +19,28 @@
             height: 100vh;
             overflow: hidden;
             position: relative;
+            .tabs {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+        .tab {
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            color: white;
+            text-decoration: none;
+        }
+        .tab.active {
+            background: rgba(255, 255, 255, 0.5);
+        }
         }
         .container {
             position: absolute;
@@ -145,10 +167,14 @@
     </style>
 </head>
 <body>
+    <div class="tabs">
+        <a href="index.html" class="tab active">Главная</a>
+        <a href="o.html" class="tab">О нас</a>
+    </div>
     <div class="container" id="error-screen">
         <div class="message-box">
-            <p class="error-text">Что-то пошло не так, повторите попытку.</p>
-            <p class="hint">(Нажмите "Повторить")</p>
+            <p class="error-text">Оперативная память перегружена...</p>
+            <p class="hint">(Нажми "Повторить" и поверни телефон)</p>
             <div class="buttons">
                 <button class="retry green" onclick="playVideo()">Повторить</button>
                 <button class="retry gray" onclick="playVideo()">Повторить</button>
