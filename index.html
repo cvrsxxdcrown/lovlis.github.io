@@ -12,8 +12,8 @@
         .section { width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; font-size: 28px; font-weight: bold; scroll-snap-align: start; position: relative; flex-direction: column; }
         header { position: absolute; top: 0; width: 100%; display: flex; justify-content: space-between; padding: 20px; font-size: 20px; background: rgba(0, 0, 0, 0.6); border-bottom: 2px solid white; }
         .nav { display: flex; gap: 20px; cursor: pointer; }
-        .animated-text { font-size: 24px; margin-top: 80px; font-weight: bold; }
-        .text-box { background: rgba(255, 255, 255, 0.1); padding: 10px; border-radius: 10px; margin-top: 10px; }
+        .animated-text { font-size: 24px; margin-top: 80px; font-weight: bold; color: #ffcc00; text-shadow: 0 0 10px #ffcc00; }
+        .text-box { background: rgba(255, 255, 255, 0.1); padding: 10px; border-radius: 10px; margin-top: 10px; max-width: 80%; font-size: 16px; }
         .arrow { position: fixed; bottom: 20px; right: 20px; font-size: 30px; cursor: pointer; user-select: none; width: 50px; height: 50px; background: white; color: black; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 0 10px rgba(255, 255, 255, 0.8); transition: transform 0.2s; }
         .arrow:hover { transform: scale(1.1); }
         .arrow-up { bottom: 80px; }
@@ -22,7 +22,7 @@
     </style>
 </head>
 <body>
-    <audio id="background-music" src="img/nice.mp3" autoplay loop></audio>
+    <audio id="background-music" src="img/nice.mp3" loop></audio>
     <div class="container">
         <div class="sections" id="sections">
             <div class="section" id="section1">
@@ -50,7 +50,9 @@
         const sections = document.getElementById("sections");
         const footer = document.getElementById("footer");
         const textElement = document.getElementById("animatedText");
-        const text1 = "It was nice while it lasted";
+        const music = document.getElementById("background-music");
+        const text1 = "It was nice ";
+        const textStrike = "while it lasted";
         const text2 = "but I don't agree that it would be like that.";
         
         function typeText(element, text, delay = 100) {
@@ -70,21 +72,28 @@
         
         async function animateText() {
             await typeText(textElement, text1);
+            const strikeSpan = document.createElement("span");
+            strikeSpan.classList.add("strike");
+            strikeSpan.textContent = textStrike;
+            textElement.appendChild(strikeSpan);
             await new Promise(resolve => setTimeout(resolve, 3000));
-            textElement.classList.add("strike");
+            strikeSpan.style.opacity = "0";
             await new Promise(resolve => setTimeout(resolve, 1000));
-            textElement.innerHTML = "";
-            textElement.classList.remove("strike");
+            textElement.removeChild(strikeSpan);
             await typeText(textElement, text2);
         }
         
         animateText();
+        music.play().catch(() => console.log("Автовоспроизведение заблокировано"));
         
         function updateArrows() {
             document.getElementById("arrowUp").style.display = currentSection > 0 ? "flex" : "none";
             document.getElementById("arrowDown").style.display = currentSection < 3 ? "flex" : "none";
             footer.style.display = currentSection === 3 ? "block" : "none";
+            if (currentSection === 0) music.play();
+            else music.pause();
         }
+
         document.getElementById("arrowDown").addEventListener("click", function() {
             if (currentSection < 3) {
                 currentSection++;
