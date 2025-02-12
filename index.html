@@ -12,8 +12,17 @@
         .section { width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; font-size: 28px; font-weight: bold; scroll-snap-align: start; position: relative; flex-direction: column; }
         header { position: absolute; top: 0; width: 100%; display: flex; justify-content: space-between; padding: 20px; font-size: 20px; background: rgba(0, 0, 0, 0.6); border-bottom: 2px solid white; }
         .nav { display: flex; gap: 20px; cursor: pointer; }
-        .animated-text { font-size: 24px; margin-top: 80px; font-weight: bold; color: #ffcc00; text-shadow: 0 0 10px #ffcc00; }
-        .text-box { background: rgba(255, 255, 255, 0.1); padding: 10px; border-radius: 10px; margin-top: 10px; max-width: 80%; font-size: 16px; }
+        .animated-text { font-size: 24px; font-weight: bold; color: #00ccff; text-shadow: 0 0 10px #00ccff; margin-top: 50px; } /* Цвет изменен */
+        .text-box { 
+            background: rgba(255, 255, 255, 0.1); 
+            padding: 10px; 
+            border-radius: 10px; 
+            max-width: 80%; 
+            font-size: 16px; 
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+            margin-top: 20px;
+        }
         .arrow { position: fixed; bottom: 20px; right: 20px; font-size: 30px; cursor: pointer; user-select: none; width: 50px; height: 50px; background: white; color: black; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 0 10px rgba(255, 255, 255, 0.8); transition: transform 0.2s; }
         .arrow:hover { transform: scale(1.1); }
         .arrow-up { bottom: 80px; }
@@ -33,7 +42,9 @@
                     </div>
                 </header>
                 <div class="animated-text" id="animatedText"></div>
-                <div class="text-box">Знаешь, может это и не какой-то суперский праздник, да и в принципе не праздник, но это повод подарить тебе вот такую валентинку, хыхыхвахыва. Этот сайт написан для тебя, здесь задействовано несколько языков программирования, я просто хочу тебе подарить положительные эмоции или как-то порадовать. В общем, я старался.</div>
+                <div class="text-box" id="textBox">
+                    Знаешь, может это и не какой-то суперский праздник, да и в принципе не праздник, но это повод подарить тебе вот такую валентинку, хыхыхвахыва. Этот сайт написан для тебя, здесь задействовано несколько языков программирования, я просто хочу тебе подарить положительные эмоции или как-то порадовать. В общем, я старался.
+                </div>
             </div>
             <div class="section" id="section2">Красивый текст, наполненный смыслом и вдохновением</div>
             <div class="section" id="section3"><pre><code>print("Hello, world!")</code></pre></div>
@@ -51,6 +62,8 @@
         const footer = document.getElementById("footer");
         const textElement = document.getElementById("animatedText");
         const music = document.getElementById("background-music");
+        const textBox = document.getElementById("textBox");
+
         const text1 = "It was nice ";
         const textStrike = "while it lasted";
         const text2 = "but I don't agree that it would be like that.";
@@ -81,17 +94,19 @@
             await new Promise(resolve => setTimeout(resolve, 1000));
             textElement.removeChild(strikeSpan);
             await typeText(textElement, text2);
+            textBox.style.opacity = "1"; // Плавное появление текста
         }
-        
+
+        document.addEventListener("click", () => {
+            music.play().catch(err => console.log("Ошибка автозапуска музыки", err));
+        });
+
         animateText();
-        music.play().catch(() => console.log("Автовоспроизведение заблокировано"));
         
         function updateArrows() {
             document.getElementById("arrowUp").style.display = currentSection > 0 ? "flex" : "none";
             document.getElementById("arrowDown").style.display = currentSection < 3 ? "flex" : "none";
             footer.style.display = currentSection === 3 ? "block" : "none";
-            if (currentSection === 0) music.play();
-            else music.pause();
         }
 
         document.getElementById("arrowDown").addEventListener("click", function() {
