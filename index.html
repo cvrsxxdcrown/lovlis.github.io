@@ -8,11 +8,11 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html, body { height: 100%; overflow: hidden; background: black; color: white; font-family: 'Arial', sans-serif; text-align: center; }
         .container { width: 100vw; height: 100vh; display: flex; flex-direction: column; align-items: center; overflow: hidden; }
-        .sections { width: 100vw; height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; }
+        .sections { width: 100vw; height: 100vh; scroll-snap-type: y mandatory; position: relative; }
         .section { width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; font-size: 28px; font-weight: bold; scroll-snap-align: start; position: relative; flex-direction: column; }
         header { position: absolute; top: 0; width: 100%; display: flex; justify-content: space-between; padding: 20px; font-size: 20px; background: rgba(0, 0, 0, 0.6); border-bottom: 2px solid white; }
         .nav { display: flex; gap: 20px; cursor: pointer; }
-        .animated-text { font-size: 24px; font-weight: bold; color: #00ccff; text-shadow: 0 0 10px #00ccff; margin-top: 50px; } /* Цвет изменен */
+        .animated-text { font-size: 24px; font-weight: bold; color: #00ccff; text-shadow: 0 0 10px #00ccff; margin-top: 50px; }
         .text-box { 
             background: rgba(255, 255, 255, 0.1); 
             padding: 10px; 
@@ -94,19 +94,27 @@
             await new Promise(resolve => setTimeout(resolve, 1000));
             textElement.removeChild(strikeSpan);
             await typeText(textElement, text2);
-            textBox.style.opacity = "1"; // Плавное появление текста
+            textBox.style.opacity = "1";
         }
 
-        document.addEventListener("click", () => {
+        function playMusic() {
             music.play().catch(err => console.log("Ошибка автозапуска музыки", err));
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            playMusic();
         });
 
-        animateText();
-        
         function updateArrows() {
             document.getElementById("arrowUp").style.display = currentSection > 0 ? "flex" : "none";
             document.getElementById("arrowDown").style.display = currentSection < 3 ? "flex" : "none";
             footer.style.display = currentSection === 3 ? "block" : "none";
+
+            if (currentSection === 0) {
+                music.play();
+            } else {
+                music.pause();
+            }
         }
 
         document.getElementById("arrowDown").addEventListener("click", function() {
@@ -116,6 +124,7 @@
                 updateArrows();
             }
         });
+
         document.getElementById("arrowUp").addEventListener("click", function() {
             if (currentSection > 0) {
                 currentSection--;
@@ -123,7 +132,13 @@
                 updateArrows();
             }
         });
+
+        sections.addEventListener("touchmove", (e) => {
+            e.preventDefault();
+        }, { passive: false });
+
         updateArrows();
+        animateText();
     </script>
 </body>
 </html>
