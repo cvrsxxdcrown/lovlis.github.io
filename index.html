@@ -7,54 +7,59 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html, body { height: 100%; overflow: hidden; background: black; color: white; font-family: 'Arial', sans-serif; text-align: center; }
-        .container { display: flex; flex-direction: column; width: 100vw; height: 400vh; }
-        .section { width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; font-size: 28px; font-weight: bold; }
-        #section1 { position: relative; }
+        .container { width: 100vw; height: 100vh; display: flex; flex-direction: column; align-items: center; overflow: hidden; }
+        .sections { width: 100vw; height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; }
+        .section { width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; font-size: 28px; font-weight: bold; scroll-snap-align: start; position: relative; }
         header { position: absolute; top: 0; width: 100%; display: flex; justify-content: space-between; padding: 20px; font-size: 20px; background: rgba(0, 0, 0, 0.6); }
         .nav { display: flex; gap: 20px; cursor: pointer; }
         .arrow { position: fixed; bottom: 20px; right: 20px; font-size: 30px; cursor: pointer; user-select: none; width: 50px; height: 50px; background: white; color: black; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 0 10px rgba(255, 255, 255, 0.8); transition: transform 0.2s; }
         .arrow:hover { transform: scale(1.1); }
         .arrow-up { bottom: 80px; }
-        footer { position: absolute; bottom: 0; width: 100%; text-align: center; padding: 10px; font-size: 18px; }
+        footer { width: 100%; text-align: center; padding: 10px; font-size: 18px; display: none; }
     </style>
 </head>
 <body>
-    <div class="container" id="container">
-        <div class="section" id="section1">
-            <header>
-                <div class="nav">
-                    <span>О нас</span>
-                    <span>Очистка памяти</span>
-                </div>
-            </header>
-            <div>It was nice</div>
+    <div class="container">
+        <div class="sections" id="sections">
+            <div class="section" id="section1">
+                <header>
+                    <div class="nav">
+                        <span>О нас</span>
+                        <span>Очистка памяти</span>
+                    </div>
+                </header>
+                <div>It was nice</div>
+            </div>
+            <div class="section" id="section2">Красивый текст, наполненный смыслом и вдохновением</div>
+            <div class="section" id="section3"><pre><code>print("Hello, world!")</code></pre></div>
+            <div class="section" id="section4">
+                <div>SF</div>
+                <footer id="footer">От кого: ... | Кому: ...</footer>
+            </div>
         </div>
-        <div class="section" id="section2">Красивый текст, наполненный смыслом и вдохновением</div>
-        <div class="section" id="section3"><pre><code>print("Hello, world!")</code></pre></div>
-        <div class="section" id="section4">
-            <div>SF</div>
-            <footer>От кого: ... | Кому: ...</footer>
-        </div>
+        <div class="arrow arrow-up" id="arrowUp" style="display: none;">&uarr;</div>
+        <div class="arrow" id="arrowDown">&darr;</div>
     </div>
-    <div class="arrow arrow-up" id="arrowUp" style="display: none;">&uarr;</div>
-    <div class="arrow" id="arrowDown">&darr;</div>
     <script>
         let currentSection = 0;
+        const sections = document.getElementById("sections");
+        const footer = document.getElementById("footer");
         function updateArrows() {
             document.getElementById("arrowUp").style.display = currentSection > 0 ? "flex" : "none";
             document.getElementById("arrowDown").style.display = currentSection < 3 ? "flex" : "none";
+            footer.style.display = currentSection === 3 ? "block" : "none";
         }
         document.getElementById("arrowDown").addEventListener("click", function() {
             if (currentSection < 3) {
                 currentSection++;
-                window.scrollTo({ top: currentSection * window.innerHeight, behavior: 'smooth' });
+                sections.scrollTo({ top: currentSection * window.innerHeight, behavior: 'smooth' });
                 updateArrows();
             }
         });
         document.getElementById("arrowUp").addEventListener("click", function() {
             if (currentSection > 0) {
                 currentSection--;
-                window.scrollTo({ top: currentSection * window.innerHeight, behavior: 'smooth' });
+                sections.scrollTo({ top: currentSection * window.innerHeight, behavior: 'smooth' });
                 updateArrows();
             }
         });
