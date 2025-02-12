@@ -3,99 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Люди рядом</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="al.css">
+    <title>Она заставляет меня таять</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; overflow: hidden; background: black; color: white; font-family: 'Arial', sans-serif; text-align: center; }
+        .container { display: flex; flex-direction: column; width: 100vw; height: 400vh; }
+        .section { width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; font-size: 28px; font-weight: bold; }
+        #section1 { position: relative; }
+        header { position: absolute; top: 0; width: 100%; display: flex; justify-content: space-between; padding: 20px; font-size: 20px; background: rgba(0, 0, 0, 0.6); }
+        .nav { display: flex; gap: 20px; cursor: pointer; }
+        .arrow { position: fixed; bottom: 20px; right: 20px; font-size: 30px; cursor: pointer; user-select: none; width: 50px; height: 50px; background: white; color: black; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 0 10px rgba(255, 255, 255, 0.8); transition: transform 0.2s; }
+        .arrow:hover { transform: scale(1.1); }
+        footer { position: absolute; bottom: 0; width: 100%; text-align: center; padding: 10px; font-size: 18px; }
+    </style>
 </head>
 <body>
-    <div class="tabs">
-        <a href="index.html" class="tab active">Главная</a>
-        <a href="o.html" class="tab">О нас</a>
-    </div>
-    <div class="container" id="error-screen">
-        <div class="message-box">
-            <p class="error-text">Заканчивается место на главном диске С...</p>
-            <p class="hint">Хм,надо бы что то стереть из памяти.Выполним очистку?</p>
-            <div class="buttons">
-                <button class="retry green" onclick="playVideo()">Да</button>
-                <button class="retry gray" onclick="playVideo()">Нет</button>
-            </div>
+    <div class="container" id="container">
+        <div class="section" id="section1">
+            <header>
+                <div class="nav">
+                    <span>О нас</span>
+                    <span>Очистка памяти</span>
+                </div>
+            </header>
+            <div>It was nice</div>
+        </div>
+        <div class="section" id="section2">Красивый текст, наполненный смыслом и вдохновением</div>
+        <div class="section" id="section3"><pre><code>print("Hello, world!")</code></pre></div>
+        <div class="section" id="section4">
+            <div>SF</div>
+            <footer>От кого: ... | Кому: ...</footer>
         </div>
     </div>
-    <div class="video-container" id="video-screen">
-        <video id="video" src="img/febr.mp4" playsinline loop></video>
-        <div class="video-overlay">ERROR 404<br>Люди рядом<br>alrskaaa & nerkisewq</div>
-    </div>
+    <div class="arrow" id="arrow">&darr;</div>
     <script>
-        let compliments = [
-            "милая", "классная", "прекрасная", "красивая", "умная", "веселая", 
-            "восхитительная", "великолепная", "ты мне дорога", "непредсказуемая", 
-            "очаровательная", "иногда злючка", "добрая", "смешная", "яркая", "неповторимая"
-        ];
-        let shuffledCompliments = [];
-
-        function shuffleCompliments() {
-            shuffledCompliments = compliments.slice().sort(() => Math.random() - 0.5);
-        }
-
-        function playVideo() {
-        document.getElementById('error-screen').style.display = 'none';
-        let videoContainer = document.getElementById('video-screen');
-        let video = document.getElementById('video');
-        videoContainer.style.display = 'block';
-        video.play();
-        shuffleCompliments();
-        setInterval(spawnErrorWindow, 1000);
-        }
-
-        function spawnErrorWindow() {
-        if (shuffledCompliments.length === 0) {
-            shuffleCompliments();
-        }
-
-        let message = shuffledCompliments.pop();
-
-        let errorWindow = document.createElement('div');
-        errorWindow.classList.add('error-window');
-
-        let videoContainer = document.getElementById('video-screen');
-        let rect = videoContainer.getBoundingClientRect(); 
-        let errorWidth = 200;
-        let errorHeight = 100;
-
-        let randomX = rect.left + Math.random() * (rect.width - errorWidth);
-        let randomY = rect.top + Math.random() * (rect.height - errorHeight);
-
-        errorWindow.style.top = `${randomY}px`;
-        errorWindow.style.left = `${randomX}px`;
-
-        let randomNumber = Math.floor(Math.random() * 999) + 1;
-
-        let formattedNumber = randomNumber.toString().padStart(3, '0');  
-
-        let errorHeader = document.createElement('div');
-        errorHeader.classList.add('error-header');
-        errorHeader.innerText = `Error${formattedNumber}`; 
-
-        let errorMessage = document.createElement('div');
-        errorMessage.innerText = message;
-
-        let errorButton = document.createElement('button');
-        errorButton.classList.add('error-button');
-        errorButton.innerText = 'ok';
-        errorButton.onclick = () => errorWindow.remove();
-
-        errorWindow.appendChild(errorHeader);
-        errorWindow.appendChild(errorMessage);
-        errorWindow.appendChild(errorButton);
-
-        document.body.appendChild(errorWindow);
-
-        setTimeout(() => {
-            errorWindow.remove();
-        }, 1000);
-    }
-
+        let currentSection = 0;
+        document.getElementById("arrow").addEventListener("click", function() {
+            if (currentSection < 3) {
+                currentSection++;
+                window.scrollTo({ top: currentSection * window.innerHeight, behavior: 'smooth' });
+            }
+        });
     </script>
 </body>
 </html>
