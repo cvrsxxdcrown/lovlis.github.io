@@ -129,13 +129,14 @@
         const sections = document.getElementById("sections");
         const footer = document.getElementById("footer");
         const textElement = document.getElementById("animatedText");
-        const music = document.getElementById("background-music");
+        const music = document.getElementById("background-music"); // музыка для первого раздела
         const textBox = document.getElementById("textBox");
-    
+
+
         const text1 = "It was nice ";
         const textStrike = "while it lasted";
         const text2 = "but I don't agree that it would be like that.";
-        
+                
         function typeText(element, text, delay = 100) {
             return new Promise(resolve => {
                 let index = 0;
@@ -150,7 +151,7 @@
                 }, delay);
             });
         }
-        
+
         async function animateText() {
             await typeText(textElement, text1);
             const strikeSpan = document.createElement("span");
@@ -164,19 +165,23 @@
             await typeText(textElement, text2);
             textBox.style.opacity = "1"; 
         }
-    
-        document.addEventListener("click", () => {
-            music.play().catch(err => console.log("Ошибка автозапуска музыки", err));
-        });
-    
+
         animateText();
-        
+
+
         function updateArrows() {
             document.getElementById("arrowUp").style.display = currentSection > 0 ? "flex" : "none";
             document.getElementById("arrowDown").style.display = currentSection < 3 ? "flex" : "none";
             footer.style.display = currentSection === 3 ? "block" : "none";
+
+            if (currentSection === 0) {
+                music.play().catch(err => console.log("Ошибка автозапуска музыки", err));
+            } else {
+                music.pause();
+            }
         }
-    
+
+
         document.getElementById("arrowDown").addEventListener("click", function() {
             if (currentSection < 3) {
                 currentSection++;
@@ -184,7 +189,8 @@
                 updateArrows();
             }
         });
-        
+
+
         document.getElementById("arrowUp").addEventListener("click", function() {
             if (currentSection > 0) {
                 currentSection--;
@@ -196,13 +202,9 @@
         clearMemory.addEventListener("click", () => {
             window.location.href = "al.html";
         });
-    
+
         document.getElementById("sections").addEventListener("scroll", function () {
-            if (currentSection === 0) {
-                music.play().catch(err => console.log("Ошибка автозапуска музыки", err));
-            } else {
-                music.pause();
-            }
+            updateArrows(); 
         });
 
         document.getElementById("startButton").addEventListener("click", function() {
