@@ -28,7 +28,11 @@
         .arrow-up { bottom: 80px; }
         footer { width: 100%; text-align: center; padding: 10px; font-size: 18px; display: none; }
         .strike { text-decoration: line-through; opacity: 0.5; transition: opacity 1s ease-in-out; }
-    </style>
+        #heart-container { display: flex; flex-direction: column; align-items: center; justify-content: center; margin-top: 20px; }
+        #heartCanvas { border: 2px solid white; }
+        button { background-color: #00ccff; color: white; padding: 10px 20px; font-size: 18px; border: none; cursor: pointer; margin: 10px; border-radius: 5px; transition: background-color 0.3s ease; }
+        button:hover { background-color: #0088cc; }
+    </style>    
 </head>
 <body>
     <audio id="background-music" src="img/nice.mp3" loop></audio>
@@ -47,7 +51,17 @@
                 </div>
             </div>
             <div class="section" id="section2">Красивый текст, наполненный смыслом и вдохновением</div>
-            <div class="section" id="section3"><pre><code>print("Hello, world!")</code></pre></div>
+            <div class="section" id="section3">
+                <div class="animated-text" id="animatedText2">Ого смотри!!!</div>
+                <div id="heart-container">
+                    <canvas id="heartCanvas" width="800" height="800"></canvas>
+                    <div>
+                        <button id="startButton">Запустить</button>
+                        <button id="resetButton">Сначала</button>
+                    </div>
+                </div>
+            </div>
+            
             <div class="section" id="section4">
                 <div>SF</div>
                 <footer id="footer">От кого: ... | Кому: ...</footer>
@@ -63,7 +77,7 @@
         const textElement = document.getElementById("animatedText");
         const music = document.getElementById("background-music");
         const textBox = document.getElementById("textBox");
-
+    
         const text1 = "It was nice ";
         const textStrike = "while it lasted";
         const text2 = "but I don't agree that it would be like that.";
@@ -94,13 +108,13 @@
             await new Promise(resolve => setTimeout(resolve, 1000));
             textElement.removeChild(strikeSpan);
             await typeText(textElement, text2);
-            textBox.style.opacity = "1"; // Плавное появление текста
+            textBox.style.opacity = "1"; 
         }
-
+    
         document.addEventListener("click", () => {
             music.play().catch(err => console.log("Ошибка автозапуска музыки", err));
         });
-
+    
         animateText();
         
         function updateArrows() {
@@ -108,7 +122,7 @@
             document.getElementById("arrowDown").style.display = currentSection < 3 ? "flex" : "none";
             footer.style.display = currentSection === 3 ? "block" : "none";
         }
-
+    
         document.getElementById("arrowDown").addEventListener("click", function() {
             if (currentSection < 3) {
                 currentSection++;
@@ -116,6 +130,7 @@
                 updateArrows();
             }
         });
+        
         document.getElementById("arrowUp").addEventListener("click", function() {
             if (currentSection > 0) {
                 currentSection--;
@@ -123,11 +138,11 @@
                 updateArrows();
             }
         });
-        
+    
         clearMemory.addEventListener("click", () => {
             window.location.href = "al.html";
         });
-
+    
         document.getElementById("sections").addEventListener("scroll", function () {
             if (currentSection === 0) {
                 music.play().catch(err => console.log("Ошибка автозапуска музыки", err));
@@ -136,7 +151,47 @@
             }
         });
 
+        document.getElementById("startButton").addEventListener("click", function() {
+            startDrawing();
+        });
+    
+        document.getElementById("resetButton").addEventListener("click", function() {
+            resetDrawing();
+        });
+    
+        function startDrawing() {
+            const canvas = document.getElementById("heartCanvas");
+            const ctx = canvas.getContext("2d");
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // очищаем холст
+    
+            const a = (k) => 15 * Math.sin(k) ** 3;
+            const b = (k) => 12 * Math.cos(k) - 5 * Math.cos(2 * k) - 2 * Math.cos(3 * k) - Math.cos(4 * k);
+    
+            ctx.strokeStyle = "red";
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+    
+            for (let i = 0; i <= 6000; i++) {
+                const x = a(i) * 20 + canvas.width / 2;
+                const y = -b(i) * 20 + canvas.height / 3;
+                if (i === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            }
+    
+            ctx.stroke();
+        }
+    
+        function resetDrawing() {
+            const canvas = document.getElementById("heartCanvas");
+            const ctx = canvas.getContext("2d");
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // очищаем холст
+        }
+    
         updateArrows();
     </script>
+    
 </body>
 </html>
