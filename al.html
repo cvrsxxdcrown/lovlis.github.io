@@ -18,7 +18,7 @@
             <p class="hint">Хм,надо бы что то стереть из памяти.Выполним очистку?</p>
             <div class="buttons">
                 <button class="retry green" onclick="playVideo()">Да</button>
-                <button class="retry gray" onclick="playVideo()">Нет</button>
+                <button class="retry gray" onclick="redirectToIndex()">Нет</button>
             </div>
         </div>
     </div>
@@ -28,14 +28,18 @@
     </div>
     <script>
         let compliments = [
-            "милая", "классная", "прекрасная", "красивая", "умная", "веселая", 
-            "восхитительная", "великолепная", "ты мне дорога", "непредсказуемая", 
-            "очаровательная", "иногда злючка", "добрая", "смешная", "яркая", "неповторимая"
+            "милая девочка", "классная и ослепительная", "прекрасная", "красивая", "умная", "веселая", 
+            "восхитительная", "великолепная", "ты мне дорога", "непредсказуемая)))", 
+            "очаровательная", "иногда злючка", "добрая", "смешная смешнявка", "яркая", "неповторимая"
         ];
         let shuffledCompliments = [];
 
         function shuffleCompliments() {
             shuffledCompliments = compliments.slice().sort(() => Math.random() - 0.5);
+        }
+
+        function redirectToIndex() {
+            window.location.href = 'index.html';
         }
 
         function playVideo() {
