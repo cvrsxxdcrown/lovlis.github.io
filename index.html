@@ -57,7 +57,7 @@
                     <canvas id="heartCanvas" width="800" height="800"></canvas>
                     <div>
                         <button id="startButton">Запустить</button>
-                        <button id="resetButton">Сначала</button>
+                        <button id="resetButton">Очистить</button>
                     </div>
                 </div>
             </div>
@@ -159,50 +159,56 @@
             resetDrawing();
         });
     
+        let drawingInterval;
+        let isDrawing = false;
+
         function startDrawing() {
             const canvas = document.getElementById("heartCanvas");
             const ctx = canvas.getContext("2d");
-            ctx.clearRect(0, 0, canvas.width, canvas.height); 
-            
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
             const a = (k) => 15 * Math.sin(k) ** 3;
             const b = (k) => 12 * Math.cos(k) - 5 * Math.cos(2 * k) - 2 * Math.cos(3 * k) - Math.cos(4 * k);
-            
+
             ctx.strokeStyle = "red";
             ctx.lineWidth = 2;
             ctx.beginPath();
 
-            let i = 0; 
-            const totalPoints = 6000; 
-            const duration = 15000; 
-            const intervalTime = duration / totalPoints; 
-            
-           
+            let i = 0;
+            const totalPoints = 6000;
+            const duration = 15000;
+            const intervalTime = duration / totalPoints;
+
             function drawHeart() {
                 if (i <= totalPoints) {
                     const x = a(i) * 20 + canvas.width / 2;
                     const y = -b(i) * 20 + canvas.height / 3;
                     if (i === 0) {
-                        ctx.moveTo(x, y); 
+                        ctx.moveTo(x, y);
                     } else {
-                        ctx.lineTo(x, y); 
+                        ctx.lineTo(x, y);
                     }
-                    ctx.stroke(); 
-
-                    i++; 
+                    ctx.stroke();
+                    i++;
                 } else {
-                    clearInterval(drawInterval); 
+                    clearInterval(drawingInterval);
                 }
             }
 
-            const drawInterval = setInterval(drawHeart, intervalTime);
+            if (!isDrawing) {
+                isDrawing = true;
+                drawingInterval = setInterval(drawHeart, intervalTime);
+            }
         }
 
-    
         function resetDrawing() {
             const canvas = document.getElementById("heartCanvas");
             const ctx = canvas.getContext("2d");
-            ctx.clearRect(0, 0, canvas.width, canvas.height); 
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            clearInterval(drawingInterval);
+            isDrawing = false;
         }
+
     
         updateArrows();
     </script>
