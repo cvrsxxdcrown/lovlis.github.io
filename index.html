@@ -3,161 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ошибка</title>
+    <title>Люди рядом</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Montserrat', sans-serif;
-        }
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
-            position: relative;
-        }
-        .container {
-            position: absolute;
-            width: 100vw;
-            height: 100vh;
-            background: url('img/pnebo.jpg') no-repeat center center/cover;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        .message-box {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 30px;
-            text-align: center;
-            color: white;
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            width: 90%;
-            max-width: 400px;
-        }
-        .error-text {
-            font-size: 1.5em;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        .hint {
-            font-size: 0.9em;
-            opacity: 0.8;
-            margin-bottom: 15px;
-        }
-        .buttons {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-        }
-        .retry {
-            padding: 12px 20px;
-            border: none;
-            cursor: pointer;
-            font-size: 1em;
-            border-radius: 25px;
-            transition: 0.3s;
-            font-weight: bold;
-        }
-        .green {
-            background-color: #28a745;
-            color: white;
-        }
-        .green:hover {
-            background-color: #218838;
-        }
-        .gray {
-            background-color: #6c757d;
-            color: white;
-        }
-        .gray:hover {
-            background-color: #5a6268;
-        }
-        .video-container {
-        position: absolute;
-        width: 100vh;
-        height: 100vw;
-        display: none;
-        transform: rotate(90deg);
-        transform-origin: center;
-        overflow: hidden;
-        user-select: none;
-        pointer-events: none; /* Запрещаем взаимодействие */
-        }
-
-        video {
-        width: 100vh;
-        height: 100vw;
-        object-fit: cover;
-        pointer-events: none; /* Полностью отключаем клики, касания и масштабирование */
-        }
-
-        body, html {
-        overscroll-behavior: none; /* Запрещаем скролл */
-        touch-action: none; /* Запрещаем жесты */
-        user-select: none; /* Запрещаем выделение */
-        }
-
-        .video-overlay {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            text-align: center;
-            font-size: 2em;
-            font-weight: 300;
-            opacity: 0.6;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-        }
-
-        .error-window {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.7);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            text-align: center;
-            font-size: 1em;
-            transform: rotate(90deg);
-            transition: opacity 0.5s ease-in-out;
-            width: 200px;
-        }
-        .error-header {
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        .error-button {
-            margin-top: 10px;
-            padding: 5px 10px;
-            border: none;
-            background: #ff4d4d;
-            color: white;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-    </style>
+    <link rel="stylesheet" href="al.css">
 </head>
 <body>
+    <div class="tabs">
+        <a href="index.html" class="tab active">Главная</a>
+        <a href="o.html" class="tab">О нас</a>
+    </div>
     <div class="container" id="error-screen">
         <div class="message-box">
-            <p class="error-text">Что-то пошло не так, повторите попытку.</p>
-            <p class="hint">(Нажмите "Повторить")</p>
+            <p class="error-text">Заканчивается место на главном диске С...</p>
+            <p class="hint">Хм,надо бы что то стереть из памяти.Выполним очистку?</p>
             <div class="buttons">
-                <button class="retry green" onclick="playVideo()">Повторить</button>
-                <button class="retry gray" onclick="playVideo()">Повторить</button>
+                <button class="retry green" onclick="playVideo()">Да</button>
+                <button class="retry gray" onclick="playVideo()">Нет</button>
             </div>
         </div>
     </div>
     <div class="video-container" id="video-screen">
         <video id="video" src="img/febr.mp4" playsinline loop></video>
-        <div class="video-overlay">ERROR 404<br>Моя голова не работает</div>
+        <div class="video-overlay">ERROR 404<br>Люди рядом<br>alrskaaa & nerkisewq</div>
     </div>
     <script>
         let compliments = [
@@ -192,28 +59,30 @@
         errorWindow.classList.add('error-window');
 
         let videoContainer = document.getElementById('video-screen');
-        let rect = videoContainer.getBoundingClientRect(); // Получаем размеры видео
-
+        let rect = videoContainer.getBoundingClientRect(); 
         let errorWidth = 200;
         let errorHeight = 100;
 
-        // Генерируем случайные координаты так, чтобы окна ошибок были в пределах видео
         let randomX = rect.left + Math.random() * (rect.width - errorWidth);
         let randomY = rect.top + Math.random() * (rect.height - errorHeight);
 
         errorWindow.style.top = `${randomY}px`;
         errorWindow.style.left = `${randomX}px`;
 
+        let randomNumber = Math.floor(Math.random() * 999) + 1;
+
+        let formattedNumber = randomNumber.toString().padStart(3, '0');  
+
         let errorHeader = document.createElement('div');
         errorHeader.classList.add('error-header');
-        errorHeader.innerText = 'Error';
+        errorHeader.innerText = `Error${formattedNumber}`; 
 
         let errorMessage = document.createElement('div');
         errorMessage.innerText = message;
 
         let errorButton = document.createElement('button');
         errorButton.classList.add('error-button');
-        errorButton.innerText = 'ЫЫЫ';
+        errorButton.innerText = 'ok';
         errorButton.onclick = () => errorWindow.remove();
 
         errorWindow.appendChild(errorHeader);
