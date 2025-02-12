@@ -6,7 +6,7 @@
     <title>Ya</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: Arial, sans-serif; text-align: center; background: #0d3b66; color: white; overflow: hidden; }
+        body { font-family: Arial, sans-serif; text-align: center; background: black; color: white; overflow: hidden; }
         
         header { 
             background: black; 
@@ -28,8 +28,8 @@
             margin-top: 20px;
             font-size: 28px;
             font-weight: bold;
-            color: yellow;
-            text-shadow: 2px 2px 4px #000;
+            color: white;
+            text-shadow: 0 0 10px white, 0 0 20px white;
         }
         
         .hidden { display: none; }
@@ -39,17 +39,12 @@
             padding: 15px 30px;
             font-size: 20px;
             font-weight: bold;
-            background: linear-gradient(90deg, #ff0000, #ff7300, #ff0000);
-            border: none;
+            background: black;
+            border: 2px solid white;
             cursor: pointer;
             border-radius: 10px;
             color: white;
-            animation: gradientAnimation 3s infinite alternate;
-        }
-        
-        @keyframes gradientAnimation {
-            0% { background-position: left; }
-            100% { background-position: right; }
+            text-shadow: 0 0 10px white, 0 0 20px white;
         }
         
         .video-container {
