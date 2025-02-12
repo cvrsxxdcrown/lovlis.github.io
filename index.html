@@ -38,7 +38,7 @@
                 <header>
                     <div class="nav">
                         <span>О нас</span>
-                        <span>Очистка памяти</span>
+                        <span id="clearMemory">Очистка памяти</span>
                     </div>
                 </header>
                 <div class="animated-text" id="animatedText"></div>
@@ -123,6 +123,11 @@
                 updateArrows();
             }
         });
+
+        clearMemory.addEventListener("click", () => {
+            window.location.href = "al.html";
+        });
+        
         updateArrows();
     </script>
 </body>
