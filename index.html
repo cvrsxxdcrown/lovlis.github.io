@@ -8,7 +8,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html, body { height: 100%; overflow: hidden; background: black; color: white; font-family: 'Arial', sans-serif; text-align: center; }
         .container { width: 100vw; height: 100vh; display: flex; flex-direction: column; align-items: center; overflow: hidden; }
-        .sections { width: 100vw; height: 100vh; overflow-y: scroll; scroll-snap-type: y mandatory; }
+        .sections { width: 100vw; height: 100vh; overflow: hidden !important; }
         .section { width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; font-size: 28px; font-weight: bold; scroll-snap-align: start; position: relative; flex-direction: column; }
         header { position: absolute; top: 0; width: 100%; display: flex; justify-content: space-between; padding: 20px; font-size: 20px; background: rgba(0, 0, 0, 0.6); border-bottom: 2px solid white; }
         .nav { display: flex; gap: 20px; cursor: pointer; }
@@ -127,7 +127,7 @@
         clearMemory.addEventListener("click", () => {
             window.location.href = "al.html";
         });
-        
+
         updateArrows();
     </script>
 </body>
