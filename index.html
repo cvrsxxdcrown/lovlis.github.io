@@ -12,26 +12,19 @@
         .section { width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; font-size: 28px; font-weight: bold; scroll-snap-align: start; position: relative; flex-direction: column; }
         header { position: absolute; top: 0; width: 100%; display: flex; justify-content: space-between; padding: 20px; font-size: 20px; background: rgba(0, 0, 0, 0.6); border-bottom: 2px solid white; }
         .nav { display: flex; gap: 20px; cursor: pointer; }
-        .animated-text { font-size: 24px; font-weight: bold; color: #00ccff; text-shadow: 0 0 10px #00ccff; margin-top: 50px; } /* Цвет изменен */
-        .text-box { 
-            background: rgba(255, 255, 255, 0.1); 
-            padding: 10px; 
-            border-radius: 10px; 
-            max-width: 80%; 
-            font-size: 16px; 
-            opacity: 0;
-            transition: opacity 2s ease-in-out;
-            margin-top: 20px;
-        }
+        .animated-text { font-size: 24px; font-weight: bold; color: #00ccff; text-shadow: 0 0 10px #00ccff; margin-top: 50px; }
+        .text-box { background: rgba(255, 255, 255, 0.1); padding: 10px; border-radius: 10px; max-width: 80%; font-size: 16px; opacity: 0; transition: opacity 2s ease-in-out; margin-top: 20px; }
         .arrow { position: fixed; bottom: 20px; right: 20px; font-size: 30px; cursor: pointer; user-select: none; width: 50px; height: 50px; background: white; color: black; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 0 10px rgba(255, 255, 255, 0.8); transition: transform 0.2s; }
         .arrow:hover { transform: scale(1.1); }
         .arrow-up { bottom: 80px; }
         footer { width: 100%; text-align: center; padding: 10px; font-size: 18px; display: none; }
         .strike { text-decoration: line-through; opacity: 0.5; transition: opacity 1s ease-in-out; }
-        #heart-container { display: flex; flex-direction: column; align-items: center; justify-content: center; margin-top: 20px; }
-        #heartCanvas { border: 2px solid white; }
-        button { background-color: #00ccff; color: white; padding: 10px 20px; font-size: 18px; border: none; cursor: pointer; margin: 10px; border-radius: 5px; transition: background-color 0.3s ease; }
+        #heart-container { display: flex; flex-direction: column; align-items: center; justify-content: center; margin-top: 20px; width: 100%; max-width: 100vw; padding: 10px; }
+        #heartCanvas { border: 2px solid white; width: 90vw; max-width: 400px; height: auto; }
+        button { background-color: #00ccff; color: white; padding: 10px 20px; font-size: 18px; border: none; cursor: pointer; margin: 10px; border-radius: 5px; transition: background-color 0.3s ease; width: 80%; max-width: 300px; text-align: center; }
         button:hover { background-color: #0088cc; }
+        @media (max-width: 600px) { #heartCanvas { width: 95vw; max-width: none; height: 60vh; } button { width: 90%; } }
+
     </style>    
 </head>
 <body>
