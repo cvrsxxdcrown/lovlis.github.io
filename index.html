@@ -123,39 +123,20 @@
                 updateArrows();
             }
         });
-
+        
         clearMemory.addEventListener("click", () => {
             window.location.href = "al.html";
         });
 
-        function checkMusicPlayback() {
+        document.getElementById("sections").addEventListener("scroll", function () {
             if (currentSection === 0) {
                 music.play().catch(err => console.log("Ошибка автозапуска музыки", err));
             } else {
                 music.pause();
             }
-        }
-
-        document.getElementById("arrowDown").addEventListener("click", function() {
-            if (currentSection < 3) {
-                currentSection++;
-                sections.scrollTo({ top: currentSection * window.innerHeight, behavior: 'smooth' });
-                updateArrows();
-                checkMusicPlayback();
-            }
-        });
-
-        document.getElementById("arrowUp").addEventListener("click", function() {
-            if (currentSection > 0) {
-                currentSection--;
-                sections.scrollTo({ top: currentSection * window.innerHeight, behavior: 'smooth' });
-                updateArrows();
-                checkMusicPlayback();
-            }
         });
 
         updateArrows();
-        checkMusicPlayback();
     </script>
 </body>
 </html>
