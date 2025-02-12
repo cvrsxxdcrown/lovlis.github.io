@@ -47,12 +47,7 @@
                 </div>
             </div>
             <div class="section" id="section2">Красивый текст, наполненный смыслом и вдохновением</div>
-            <div class="section" id="section3">
-                <button id="run-code">Запустить код</button>
-                <button id="restart-code">Заново</button>
-                <div id="output" style="white-space: pre-wrap; margin-top: 20px;"></div>
-            </div>
-            
+            <div class="section" id="section3"><pre><code>print("Hello, world!")</code></pre></div>
             <div class="section" id="section4">
                 <div>SF</div>
                 <footer id="footer">От кого: ... | Кому: ...</footer>
@@ -139,18 +134,6 @@
             } else {
                 music.pause();
             }
-        });
-        document.getElementById("run-code").addEventListener("click", function () {
-            fetch("/run-code")
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById("output").innerText = data; 
-                })
-                .catch(error => console.error("Ошибка:", error));
-        });
-
-        document.getElementById("restart-code").addEventListener("click", function () {
-            document.getElementById("output").innerText = ""; 
         });
 
         updateArrows();
