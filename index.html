@@ -239,9 +239,6 @@
             textBox.style.opacity = "1"; 
         }
 
-        const textElement2 = document.getElementById("animatedText2");
-        const textBox2 = document.getElementById("textBox2");
-
         async function animateText2() {
             await typeText(textElement2, text1);
             const strikeSpan2 = document.createElement("span");
@@ -255,8 +252,6 @@
             await typeText(textElement2, text2);
             textBox2.style.opacity = "1"; 
         }
-
-        animateText2();
 
 
         animateText();
